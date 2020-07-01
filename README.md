@@ -169,3 +169,5 @@ module.exports = (grunt) => {
 编写完这个任务后，我们在终端输入命令执行这个任务`yarn grunt babel`。执行完后，我们打开temp目录下的assets目录下的script目录下的main.js文件，可以看到，原本在src文件夹下的main.js文件中的`const`关键词被替换成了`var`
 
 未完待续~
+
+.
