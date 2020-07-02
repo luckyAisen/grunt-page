@@ -6,7 +6,7 @@
 
 ## 说明
 
-文档中使用到的模板是这个：[grunt-page](https://github.com/Aisen60/grunt-page)
+文档中使用到的模板是这个：[aisen60-pages](https://github.com/Aisen60/aisen60-pages)
 
 文件夹结构
 
