@@ -13,6 +13,18 @@ module.exports = (grunt) => {
       dist: "dist",
       temp: "temp",
     },
+    copy: {
+      serve: {
+        files: [
+          {
+            expand: true,
+            cwd: "src", //需要处理的文件（input）所在的目录。
+            src: ["**/*.html"], ////表示需要处理的文件。如果采用数组形式，数组的每一项就是一个文件名，可以使用通配符。
+            dest: "temp", //表示处理后的文件名或所在目录。
+          },
+        ],
+      },
+    },
     sass: {
       options: {
         /**
@@ -56,5 +68,63 @@ module.exports = (grunt) => {
         },
       },
     },
+    imagemin: {
+      main: {
+        options: {
+          optimizationLevel: 1, //定义 PNG 图片优化水平
+        },
+        files: [
+          {
+            expand: true,
+            cwd: "src/assets/images/", //原文件存放的文件夹
+            src: ["**/*.{png,jpg,jpeg,gif,svg}"], //  images 目录下所有 png/jpg/jpeg/gif图片
+            dest: "temp/assets/images", // 保存位置
+          },
+          {
+            expand: true,
+            cwd: "src/assets/fonts/", //原文件存放的文件夹
+            src: ["**/*"], //  fonts 目录下所有 字体文件
+            dest: "temp/assets/fonts", // 保存位置
+          },
+          {
+            expand: true,
+            cwd: "public/", // 原文件存放的文件夹
+            src: ["**/*"], // public 目录下所有 字体文件
+            dest: "temp/", // 保存位置
+          },
+        ],
+      },
+    },
+    browserSync: {
+      dev: {
+        options: {
+          // watchTask: true,
+          notify: false, //是否开启通知
+          port: 6060, //启动的端口，如果不设置，默认是3000端口
+          // files: [
+          //   "src/**/*.html",
+          //   "src/assets/styles/*",
+          //   "src/assets/scripts/*",
+          //   "src/assets/images/*",
+          //   "src/assets/fonts/*",
+          //   "public/*",
+          // ],
+          server: {
+            baseDir: ["temp"], // 监听多个目录
+            // routes: {
+            //   // 前置路由，设置了路由后，会去找项目目录中指定的文件夹
+            //   "/node_modules": "node_modules",
+            // },
+          },
+        },
+      },
+    },
   });
+
+  grunt.registerTask("develop", "启动web服务器", [
+    "clean",
+    "copy:serve",
+    "sass",
+    "browserSync",
+  ]);
 };
